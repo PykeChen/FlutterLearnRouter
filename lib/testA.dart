@@ -49,6 +49,13 @@ main() {
     print(item)
   });
 
+  Man.fromJson(Map());
+
+  Vector v1 = new Vector(1, 2);
+  Vector v2 = new Vector(3, 4);
+  (v1 - v2).printVec(); // -2, -2
+  (v1 + v2).printVec(); // 4, 6
+
 }
 
 
@@ -61,10 +68,49 @@ abstract class Shape {
   num get area;
 }
 
-class B implements Circle{
+class BC implements Circle{
   @override
   num get area => 100.0;
 
   num get radius => 100;
 
+}
+
+class Human {
+  String name;
+  Human.fromJson(Map data) {
+    print("Human's fromJson constructor");
+  }
+}
+
+class Man extends Human {
+  Man.fromJson(Map data) : super.fromJson(data) {
+    print("Man's fromJson constructor");
+  }
+}
+
+class Vector {
+  num x, y;
+  Vector(this.x, this.y);
+  Vector operator +(Vector v) => new Vector(x + v.x, y + v.y);
+  Vector operator -(Vector v) => new Vector(x - v.x, y - v.y);
+  printVec() {
+    print("x: $x, y: $y");
+  }
+}
+
+class C = A with B;
+
+class D = Circle with B;
+
+class A {
+  a(int a) {
+    print("A's a()");
+  }
+}
+
+class B {
+  b() {
+    print("B's b()");
+  }
 }
